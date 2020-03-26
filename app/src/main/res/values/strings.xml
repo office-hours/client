@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">Office Hours</string>
+  <string name="login_failure">Unable to loging with the provided credentials.</string>
 </resources>

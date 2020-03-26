@@ -1,7 +1,8 @@
-package edu.cnm.deepdive.officehours;
+package edu.cnm.deepdive.officehours.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import edu.cnm.deepdive.officehours.R;
 
 public class MainActivity extends AppCompatActivity {
 
