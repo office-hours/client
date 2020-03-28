@@ -3,6 +3,10 @@ package edu.cnm.deepdive.officehours.service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.cnm.deepdive.officehours.BuildConfig;
+import io.reactivex.Completable;
+import io.reactivex.Single;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -10,8 +14,40 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface OfficeHoursService {
+
+  @GET("users")
+  Single<List<User>> getAllUsers(@Header("Authorization") String oauthHeader);
+
+  @GET("users/{id}")
+  Single<User> getUser(@Header("Authorization") String oauthHeader, @Path("id") UUID id);
+
+  @GET("students")
+  Single<List<Student>> getAllStudents(@Header("Authorization") String oauthHeader);
+
+  @GET("students/{id}")
+  Single<Student> getStudent(@Header("Authorization") String oauthHeader, @Path("id") UUID id);
+
+  @GET("teachers")
+  Single<List<Teacher>> getAllTeachers(@Header("Authorization") String oauthHeader);
+
+  @GET("users/{id}")
+  Single<Teacher> getTeacher(@Header("Authorization") String oauthHeader, @Path("id") UUID id);
+
+  @GET("appointments")
+  Single<List<Appointment>> getAllAppointments(@Header("Authorization") String oauthHeader);
+
+  @GET("appointments/{id}")
+  Single<Appointment> getAppointment(@Header("Authorization") String oauthHeader, @Path("id") UUID id);
 
   static OfficeHoursService getInstance(){
     return InstanceHolder.INSTANCE;
