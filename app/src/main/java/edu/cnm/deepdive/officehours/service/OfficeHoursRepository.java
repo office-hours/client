@@ -1,5 +1,9 @@
 package edu.cnm.deepdive.officehours.service;
 
+import edu.cnm.deepdive.officehours.model.Appointment;
+import edu.cnm.deepdive.officehours.model.Student;
+import edu.cnm.deepdive.officehours.model.Teacher;
+import edu.cnm.deepdive.officehours.model.User;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.text.DateFormat;
@@ -29,7 +33,7 @@ public class OfficeHoursRepository {
     return InstanceHolder.INSTANCE;
   }
 
-  private Single<User> getUser(String token, UUID id) {
+  public Single<User> getUser(String token, UUID id) {
     return proxy.getUser(String.format(OAUTH_HEADER_FORMAT, token), id)
         .subscribeOn(Schedulers.from(networkPool));
   }
@@ -39,7 +43,7 @@ public class OfficeHoursRepository {
         .subscribeOn(Schedulers.from(networkPool));
   }
 
-  private Single<Student> getStudent(String token, UUID id) {
+  public Single<Student> getStudent(String token, UUID id) {
     return proxy.getStudent(String.format(OAUTH_HEADER_FORMAT, token), id)
         .subscribeOn(Schedulers.from(networkPool));
   }
@@ -48,7 +52,7 @@ public class OfficeHoursRepository {
     return proxy.getAllStudents(String.format(OAUTH_HEADER_FORMAT, token))
         .subscribeOn(Schedulers.from(networkPool));
   }
-  private Single<Teacher> getTeacher(String token, UUID id) {
+  public Single<Teacher> getTeacher(String token, UUID id) {
     return proxy.getTeacher(String.format(OAUTH_HEADER_FORMAT, token), id)
         .subscribeOn(Schedulers.from(networkPool));
   }
@@ -57,7 +61,7 @@ public class OfficeHoursRepository {
     return proxy.getAllTeachers(String.format(OAUTH_HEADER_FORMAT, token))
         .subscribeOn(Schedulers.from(networkPool));
   }
-  private Single<Appointment> getAppointment(String token, UUID id) {
+  public Single<Appointment> getAppointment(String token, UUID id) {
     return proxy.getAppointment(String.format(OAUTH_HEADER_FORMAT, token), id)
         .subscribeOn(Schedulers.from(networkPool));
   }

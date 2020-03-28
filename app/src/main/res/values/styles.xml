@@ -8,4 +8,44 @@
     <item name="colorAccent">@color/colorAccent</item>
   </style>
 
+  <style name="Screen" parent="AppTheme">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:background">@color/listBackground</item>
+  </style>
+
+  <style name="Screen.List">
+    <item name="android:paddingTop">@dimen/list_padding</item>
+    <item name="android:paddingBottom">@dimen/list_padding</item>
+    <item name="android:paddingStart">@dimen/list_padding</item>
+    <item name="android:paddingEnd">@dimen/list_padding</item>
+  </style>
+
+  <style name="ListItemContainer" parent="AppTheme">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginTop">@dimen/list_item_margin</item>
+    <item name="android:layout_marginBottom">@dimen/list_item_margin</item>
+    <item name="android:layout_marginStart">@dimen/list_item_margin</item>
+    <item name="android:layout_marginEnd">@dimen/list_item_margin</item>
+    <item name="cardCornerRadius">@dimen/list_item_corner_radius</item>
+  </style>
+
+  <style name="ListItemLayout" parent="AppTheme">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:paddingTop">@dimen/list_item_padding</item>
+    <item name="android:paddingBottom">@dimen/list_item_padding</item>
+    <item name="android:paddingStart">@dimen/list_item_padding</item>
+    <item name="android:paddingEnd">@dimen/list_item_padding</item>
+    <item name="android:background">?android:attr/selectableItemBackground</item>
+  </style>
+
+
+  <style name="ListItemText" parent="AppTheme"/>
+
+  <style name="ListItemText.User" parent="@style/TextAppearance.AppCompat.Subhead">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+  </style>
 </resources>

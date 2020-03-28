@@ -1,4 +1,10 @@
 <resources>
   <string name="app_name">Office Hours</string>
   <string name="login_failure">Unable to loging with the provided credentials.</string>
+  <string name="sign_out">Sign out</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="user_format"><![CDATA[&#8220;%s&#8221;]]></string>
+  <string name="attribution_format"><![CDATA[&#x2015;%s]]></string>
 </resources>
