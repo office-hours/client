@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "edu.cnm.deepdive.officehours"
         minSdkVersion 21
@@ -78,8 +77,11 @@ dependencies {
     // Google Sign-In dependency
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
 
+    implementation "com.github.prolificinteractive:material-calendarview:2.0.1"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
 
 }
