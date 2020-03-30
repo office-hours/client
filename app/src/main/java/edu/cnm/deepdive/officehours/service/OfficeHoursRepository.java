@@ -4,6 +4,7 @@ import edu.cnm.deepdive.officehours.model.Appointment;
 import edu.cnm.deepdive.officehours.model.Student;
 import edu.cnm.deepdive.officehours.model.Teacher;
 import edu.cnm.deepdive.officehours.model.User;
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.text.DateFormat;
@@ -70,6 +71,14 @@ public class OfficeHoursRepository {
     return proxy.getAllAppointments(String.format(OAUTH_HEADER_FORMAT, token))
         .subscribeOn(Schedulers.from(networkPool));
   }
+
+  public Completable save(String token, User user) {
+      return Completable.fromSingle(
+          proxy.putUser(String.format(OAUTH_HEADER_FORMAT, token), user, user.getId())
+              .subscribeOn(Schedulers.from(networkPool))
+      );
+    }
+
 
   private static class InstanceHolder {
 

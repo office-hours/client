@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  tools:context=".controller.UserEditFragment">
+
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    style="@style/EditContainer">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/user_layout"
+      style="@style/EditItem"
+      app:hintEnabled="true"
+      app:hintAnimationEnabled="true"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent">
+
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/user_nickname"
+        style="@style/EditItem.Nested.Multiline"
+        android:hint="@string/user_nickname"
+        android:inputType="textMultiLine"
+        android:minLines="1"
+        android:maxLines="6"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

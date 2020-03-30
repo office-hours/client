@@ -193,6 +193,30 @@ public class MainViewModel extends ViewModel implements LifecycleObserver {
         .addOnFailureListener(throwable::postValue);
   }
 
+  // TODO Add method setAppointmentId.
+
+  public void save(User user) {
+    throwable.setValue(null);
+    GoogleSignInService.getInstance().refresh()
+        .addOnSuccessListener((account) -> {
+          pending.add(
+              repository.save(account.getIdToken(), user)
+                  .subscribe(
+                      () -> {
+                        this.user.postValue(null);
+                        refreshUsers();
+                        refreshStudents();
+                        refreshTeachers();
+                        refreshAppointments();
+                      },
+                      throwable::postValue
+                  )
+          );
+        })
+        .addOnFailureListener(throwable::postValue);
+  }
+
+
   @OnLifecycleEvent(Event.ON_STOP)
   private void clearPending() {
     pending.clear();

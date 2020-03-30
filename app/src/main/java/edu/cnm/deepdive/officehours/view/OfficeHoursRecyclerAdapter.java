@@ -57,7 +57,7 @@ public class OfficeHoursRecyclerAdapter extends RecyclerView.Adapter<Holder> {
 
     private Holder(View root) {
       super(root);
-      userInfo = root.findViewById(R.id.users_list);
+      userInfo = root.findViewById(R.id.user_item);
     }
 
     private void bind(int position, User user) {

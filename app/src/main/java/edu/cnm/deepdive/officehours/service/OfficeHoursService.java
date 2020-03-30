@@ -35,6 +35,10 @@ public interface OfficeHoursService {
   @GET("users/{id}")
   Single<User> getUser(@Header("Authorization") String oauthHeader, @Path("id") UUID id);
 
+  @PUT("users/{id}")
+  Single<User> putUser(
+      @Header("Authorization") String oauthHeader, @Body User user, @Path("id") UUID id);
+
   @GET("students")
   Single<List<Student>> getAllStudents(@Header("Authorization") String oauthHeader);
 
@@ -52,6 +56,9 @@ public interface OfficeHoursService {
 
   @GET("appointments/{id}")
   Single<Appointment> getAppointment(@Header("Authorization") String oauthHeader, @Path("id") UUID id);
+
+  // TODO Add method that allows to get appointments by a range of dates.
+
 
   static OfficeHoursService getInstance(){
     return InstanceHolder.INSTANCE;

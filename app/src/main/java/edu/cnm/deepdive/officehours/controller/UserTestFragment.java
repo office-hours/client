@@ -3,6 +3,7 @@ package edu.cnm.deepdive.officehours.controller;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +21,6 @@ public class UserTestFragment extends Fragment {
   private MainViewModel viewModel;
   private RecyclerView userList;
 
-  public UserTestFragment() {
-    // Required empty public constructor
-  }
-
-
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
@@ -33,19 +29,24 @@ public class UserTestFragment extends Fragment {
     return root;
   }
 
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    setupViewModel();
+  }
+
   private void setupUI(View root) {
     userList = root.findViewById(R.id.users_list);
-    registerForContextMenu(userList);
   }
 
   @SuppressWarnings("ConstantConditions")
   private void setupViewModel() {
     viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
     viewModel.getUsers().observe(getViewLifecycleOwner(), (users) -> {
-//      OfficeHoursRecyclerAdapter adapter =
-//          new OfficeHoursRecyclerAdapter(getContext(), users, (pos, user) ->
-//              UserEditFragment.createAndShow(getChildFragmentManager(), user.getId()));
-//      userList.setAdapter(adapter);
+      OfficeHoursRecyclerAdapter adapter =
+          new OfficeHoursRecyclerAdapter(getContext(), users, (pos, user) ->
+              UserEditFragment.createAndShow(getChildFragmentManager(), user.getId()));
+      userList.setAdapter(adapter);
     });
   }
 
