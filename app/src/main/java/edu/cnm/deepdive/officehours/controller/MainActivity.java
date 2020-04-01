@@ -33,7 +33,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements DayViewDecorator, TextWatcher {
+public class MainActivity extends AppCompatActivity implements TextWatcher {
 
   private MainViewModel viewModel;
   private MaterialCalendarView calendarView;
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements DayViewDecorator,
         new ColorDrawable(Color.GREEN), new ColorDrawable(Color.CYAN));
     calendarView.addDecorator(decorator);
     teacher = findViewById(R.id.teacher);
+    teacher.addTextChangedListener(this);
     setupViewModel();
   }
 
@@ -83,14 +84,12 @@ public class MainActivity extends AppCompatActivity implements DayViewDecorator,
         showToast(throwable.getMessage());
       }
     });
-/*
     viewModel.getAppointments().observe(this, (appointments) -> {
       Log.d(getClass().getName(), appointments.toString());
       this.appointments = appointments;
       decorator.setAppointments(appointments);
       calendarView.invalidateDecorators();
     });
-*/
     viewModel.getTeachers().observe(this, (teachers) -> {
       this.teachers = teachers;
       ArrayAdapter<Teacher> adapter =
@@ -113,27 +112,6 @@ public class MainActivity extends AppCompatActivity implements DayViewDecorator,
           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
           startActivity(intent);
         });
-  }
-
-  @Override
-  public boolean shouldDecorate(CalendarDay day) {
-    if (appointments != null) {
-      for (Appointment appointment : appointments) {
-        Calendar start = Calendar.getInstance();
-        start.setTime(appointment.getStartTime());
-        if (day.getYear() == start.get(Calendar.YEAR)
-            && day.getMonth() == start.get(Calendar.MONTH)
-            && day.getDay() == start.get(Calendar.DAY_OF_MONTH)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  @Override
-  public void decorate(DayViewFacade view) {
-   view.setBackgroundDrawable(new ColorDrawable(Color.CYAN));
   }
 
   @Override

@@ -2,6 +2,7 @@ package edu.cnm.deepdive.officehours.model;
 
 import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import java.net.URL;
 import java.util.UUID;
 
@@ -14,9 +15,11 @@ public class Teacher implements Content {
   private User user;
 
   @Expose
+  @SerializedName("appointment")
   private Appointment[] appointments;
 
   @Expose
+  @SerializedName("policy")
   private Policy[] policies;
 
   @Expose

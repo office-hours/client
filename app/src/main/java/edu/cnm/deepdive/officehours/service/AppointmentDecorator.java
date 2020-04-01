@@ -71,8 +71,12 @@ public class AppointmentDecorator implements DayViewDecorator {
   }
 
   public void setAppointments(List<Appointment> appointments) {
-    this.appointments = new ArrayList<>(appointments);
-    Collections.sort(this.appointments);
+    if (appointments != null) {
+      this.appointments = new ArrayList<>(appointments);
+      Collections.sort(this.appointments);
+    } else {
+      this.appointments = null;
+    }
   }
 
   public List<Policy> getPolicies() {
@@ -80,7 +84,11 @@ public class AppointmentDecorator implements DayViewDecorator {
   }
 
   public void setPolicies(List<Policy> policies) {
-    this.policies = new ArrayList<>(policies);
-    Collections.sort(this.policies);
+    if (policies != null) {
+      this.policies = new ArrayList<>(policies);
+      Collections.sort(this.policies);
+    } else {
+      this.policies = null;
+    }
   }
 }
