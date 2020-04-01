@@ -14,6 +14,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 import edu.cnm.deepdive.officehours.R;
 import edu.cnm.deepdive.officehours.model.Appointment;
 import edu.cnm.deepdive.officehours.service.GoogleSignInService;
@@ -26,12 +27,15 @@ public class MainActivity extends AppCompatActivity implements DayViewDecorator 
   private MaterialCalendarView calendarView;
   private List<Appointment> appointments;
 
+
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    calendarView = findViewById(R.id.calendar_view);
-    calendarView.addDecorator(this);
+//    calendarView = findViewById(R.id.calendar_view);
+//    calendarView.addDecorator(this);
     setupViewModel();
   }
 
@@ -66,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements DayViewDecorator 
     viewModel.getAppointments().observe(this, (appointments) -> {
       Log.d(getClass().getName(), appointments.toString());
       this.appointments = appointments;
-      calendarView.invalidateDecorators();
+//      calendarView.invalidateDecorators();
     });
     getLifecycle().addObserver(viewModel);
   }
@@ -102,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements DayViewDecorator 
 
   @Override
   public void decorate(DayViewFacade view) {
-    Log.d(getClass().getName(), "Decorate");
+    view.addSpan(new DotSpan(5, R.color.colorPrimaryDark));
+//    Log.d(getClass().getName(), "Decorate");
   }
 }
