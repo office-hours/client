@@ -1,14 +1,14 @@
 package edu.cnm.deepdive.officehours.service;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import edu.cnm.deepdive.officehours.model.Appointment;
 import edu.cnm.deepdive.officehours.model.Policy;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 public class AppointmentDecorator implements DayViewDecorator {
@@ -41,6 +41,11 @@ public class AppointmentDecorator implements DayViewDecorator {
       }
     }
     if (policies != null) {
+      Calendar target = Calendar.getInstance();
+      target.set(Calendar.YEAR, day.getYear());
+      target.set(Calendar.MONTH, day.getMonth());
+      target.set(Calendar.DAY_OF_MONTH, day.getDay());
+      // TODO Search for target in policies.
       for (Policy policy : policies) {
         Calendar start = Calendar.getInstance();
         start.setTime(policy.getStartAvailable());
@@ -66,7 +71,8 @@ public class AppointmentDecorator implements DayViewDecorator {
   }
 
   public void setAppointments(List<Appointment> appointments) {
-    this.appointments = appointments;
+    this.appointments = new ArrayList<>(appointments);
+    Collections.sort(this.appointments);
   }
 
   public List<Policy> getPolicies() {
@@ -74,6 +80,7 @@ public class AppointmentDecorator implements DayViewDecorator {
   }
 
   public void setPolicies(List<Policy> policies) {
-    this.policies = policies;
+    this.policies = new ArrayList<>(policies);
+    Collections.sort(this.policies);
   }
 }

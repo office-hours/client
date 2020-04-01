@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.officehours.model;
 
+import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import java.net.URL;
 import java.util.UUID;
@@ -70,6 +71,12 @@ public class Teacher implements Content {
 
   public void setHref(URL href) {
     this.href = href;
+  }
+
+  @NonNull
+  @Override
+  public String toString() {
+    return teacherName;
   }
 }
 

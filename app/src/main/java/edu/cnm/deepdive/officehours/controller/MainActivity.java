@@ -83,12 +83,14 @@ public class MainActivity extends AppCompatActivity implements DayViewDecorator,
         showToast(throwable.getMessage());
       }
     });
+/*
     viewModel.getAppointments().observe(this, (appointments) -> {
       Log.d(getClass().getName(), appointments.toString());
       this.appointments = appointments;
       decorator.setAppointments(appointments);
       calendarView.invalidateDecorators();
     });
+*/
     viewModel.getTeachers().observe(this, (teachers) -> {
       this.teachers = teachers;
       ArrayAdapter<Teacher> adapter =

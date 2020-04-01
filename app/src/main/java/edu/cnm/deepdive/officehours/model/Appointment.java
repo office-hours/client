@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
 
-public class Appointment implements Content {
+public class Appointment implements Content, Comparable<Appointment> {
 
   @Expose
   private UUID id;
@@ -93,5 +93,14 @@ public class Appointment implements Content {
 
   public void setHref(URL href) {
     this.href = href;
+  }
+
+  @Override
+  public int compareTo(Appointment other) {
+    int comparison = startTime.compareTo(other.startTime);
+    if (comparison == 0) {
+      comparison = endTime.compareTo(other.endTime);
+    }
+    return comparison;
   }
 }
