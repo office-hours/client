@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
 
-public class Policy implements Content {
+public class Policy implements Content, Comparable<Policy> {
 
   @Expose
   private UUID id;
@@ -93,6 +93,15 @@ public class Policy implements Content {
 
   public void setHref(URL href) {
     this.href = href;
+  }
+
+  @Override
+  public int compareTo(Policy other) {
+    int comparison = startAvailable.compareTo(other.startAvailable);
+    if (comparison == 0) {
+      comparison = endAvailable.compareTo(other.endAvailable);
+    }
+    return comparison;
   }
 }
 

@@ -13,6 +13,7 @@ import edu.cnm.deepdive.officehours.model.User;
 import edu.cnm.deepdive.officehours.service.GoogleSignInService;
 import edu.cnm.deepdive.officehours.service.OfficeHoursRepository;
 import io.reactivex.disposables.CompositeDisposable;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ public class MainViewModel extends ViewModel implements LifecycleObserver {
   private MutableLiveData<List<Student>> students;
   private MutableLiveData<List<Teacher>> teachers;
   private MutableLiveData<List<Appointment>> appointments;
+  private MutableLiveData<List<Appointment>> dailyAppointments;
 
   private MutableLiveData<User> user;
   private MutableLiveData<Student> student;
@@ -40,6 +42,7 @@ public class MainViewModel extends ViewModel implements LifecycleObserver {
     students = new MutableLiveData<>();
     teachers = new MutableLiveData<>();
     appointments = new MutableLiveData<>();
+    dailyAppointments = new MutableLiveData<>();
     user = new MutableLiveData<>();
     student = new MutableLiveData<>();
     teacher = new MutableLiveData<>();
@@ -65,6 +68,10 @@ public class MainViewModel extends ViewModel implements LifecycleObserver {
 
   public LiveData<List<Appointment>> getAppointments() {
     return appointments;
+  }
+
+  public LiveData<List<Appointment>> getDailyAppointments() {
+    return dailyAppointments;
   }
 
   public LiveData<User> getUser() {
@@ -193,20 +200,10 @@ public class MainViewModel extends ViewModel implements LifecycleObserver {
         .addOnFailureListener(throwable::postValue);
   }
 
-  public void setAppointmentId(UUID id) {
-    throwable.setValue(null);
-    GoogleSignInService.getInstance().refresh()
-        .addOnSuccessListener(
-            (account) -> pending.add(
-                repository.getAppointment(account.getIdToken(), id)
-                    .subscribe(
-                        appointment::postValue,
-                        throwable::postValue
-                    )
-            )
-        )
-        .addOnFailureListener(throwable::postValue);
+  public void fetchDailyAppointments(UUID teacherId, Date date){
+
   }
+  // TODO Add method setAppointmentId.
 
   public void save(User user) {
     throwable.setValue(null);
