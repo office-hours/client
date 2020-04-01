@@ -1,3 +1,4 @@
+/*
 package edu.cnm.deepdive.officehours.controller;
 
 import android.app.Fragment;
@@ -23,7 +24,9 @@ public class AppointmentFragment extends Fragment {
   @Override
   public View onCreateView(
       @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    View root = inflater.inflate(R.layout./* create layout resource*/, container, false);
+    View root = inflater.inflate(R.layout.*/
+/* create layout resource*//*
+, container, false);
     setupUI(root);
     return root;
   }
@@ -73,3 +76,4 @@ public class AppointmentFragment extends Fragment {
   }
 
 }
+*/
