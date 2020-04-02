@@ -26,7 +26,7 @@ public class Policy implements Content, Comparable<Policy> {
   private Date updated;
 
   @Expose
-  private Date blockTime;
+  private int blockTime;
 
   @Expose
   private URL href;
@@ -79,11 +79,11 @@ public class Policy implements Content, Comparable<Policy> {
     this.updated = updated;
   }
 
-  public Date getBlockTime() {
+  public int getBlockTime() {
     return blockTime;
   }
 
-  public void setBlockTime(Date blockTime) {
+  public void setBlockTime(int blockTime) {
     this.blockTime = blockTime;
   }
 

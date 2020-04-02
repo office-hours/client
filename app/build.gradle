@@ -10,7 +10,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "CLIENT_ID", "\"1041518071806-08p73ma5gmlgpve4db1dmajfumsmns8e.apps.googleusercontent.com\""
-        buildConfigField "String", "BASE_URL", "\"http://192.168.0.18:8080/office-hours/\""
+        buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:8080/office-hours/\""
         //TODO Replace with actual URL from host account.
     }
     buildTypes {

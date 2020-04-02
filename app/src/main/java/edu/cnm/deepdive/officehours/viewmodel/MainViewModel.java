@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.officehours.viewmodel;
 
+import android.util.Log;
 import androidx.lifecycle.Lifecycle.Event;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LiveData;
@@ -48,10 +49,10 @@ public class MainViewModel extends ViewModel implements LifecycleObserver {
     teacher = new MutableLiveData<>();
     appointment = new MutableLiveData<>();
     throwable = new MutableLiveData<>();
-    refreshUsers();
+//    refreshUsers();
     refreshStudents();
     refreshTeachers();
-    refreshAppointments();
+//    refreshAppointments();
   }
 
   public LiveData<List<User>> getUsers() {
@@ -127,15 +128,16 @@ public class MainViewModel extends ViewModel implements LifecycleObserver {
   public void refreshTeachers() {
     throwable.postValue(null);
     GoogleSignInService.getInstance().refresh()
-        .addOnSuccessListener((account) -> {
-          pending.add(
-              repository.getAllTeachers(account.getIdToken())
-                  .subscribe(
-                      teachers::postValue,
-                      throwable::postValue
-                  )
-          );
-        })
+        .addOnSuccessListener((account) ->
+            pending.add(
+                repository.getAllTeachers(account.getIdToken())
+                    .doOnSuccess((whatever) -> Log.d(getClass().getName(), "doOnSuccess"))
+                    .doAfterSuccess((whatever) -> Log.d(getClass().getName(), "doAfterSuccess"))
+                    .subscribe(
+                        teachers::postValue,
+                        throwable::postValue
+                    )
+            ))
         .addOnFailureListener(throwable::postValue);
   }
 
@@ -200,7 +202,7 @@ public class MainViewModel extends ViewModel implements LifecycleObserver {
         .addOnFailureListener(throwable::postValue);
   }
 
-  public void fetchDailyAppointments(UUID teacherId, Date date){
+  public void fetchDailyAppointments(UUID teacherId, Date date) {
 
   }
   // TODO Add method setAppointmentId.
