@@ -9,8 +9,12 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,15 +37,13 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements TextWatcher {
+public class MainActivity extends AppCompatActivity
+    implements OnItemSelectedListener {
 
   private MainViewModel viewModel;
   private MaterialCalendarView calendarView;
-  private List<Appointment> appointments;
-  private List<Teacher> teachers;
   private AppointmentDecorator decorator;
-  private AutoCompleteTextView teacher;
-
+  private Spinner teacher;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
         new ColorDrawable(Color.GREEN), new ColorDrawable(Color.CYAN));
     calendarView.addDecorator(decorator);
     teacher = findViewById(R.id.teacher);
-    teacher.addTextChangedListener(this);
+    teacher.setOnItemSelectedListener(this);
     setupViewModel();
   }
 
@@ -84,16 +86,9 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
         showToast(throwable.getMessage());
       }
     });
-    viewModel.getAppointments().observe(this, (appointments) -> {
-      Log.d(getClass().getName(), appointments.toString());
-      this.appointments = appointments;
-      decorator.setAppointments(appointments);
-      calendarView.invalidateDecorators();
-    });
     viewModel.getTeachers().observe(this, (teachers) -> {
-      this.teachers = teachers;
       ArrayAdapter<Teacher> adapter =
-          new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, teachers);
+          new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, teachers);
       teacher.setAdapter(adapter);
     });
     getLifecycle().addObserver(viewModel);
@@ -115,30 +110,18 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
   }
 
   @Override
-  public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+  public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    Teacher teacher = (Teacher) parent.getItemAtPosition(position);
+    decorator.setAppointments(Arrays.asList(teacher.getAppointments()));
+    decorator.setPolicies(Arrays.asList(teacher.getPolicies()));
+    calendarView.invalidateDecorators();
   }
 
   @Override
-  public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+  public void onNothingSelected(AdapterView<?> parent) {
+    decorator.setAppointments(null);
+    decorator.setPolicies(null);
+    calendarView.invalidateDecorators();
   }
 
-  @Override
-  public void afterTextChanged(Editable s) {
-    String name = teacher.getText().toString().trim();
-    if (teachers != null) {
-      for (Teacher teacher : teachers) {
-          if (name.equalsIgnoreCase(teacher.getTeacherName())) {
-            decorator.setAppointments(Arrays.asList(teacher.getAppointments()));
-            decorator.setPolicies(Arrays.asList(teacher.getPolicies()));
-            calendarView.invalidateDecorators();
-            break;
-          }
-      }
-      decorator.setAppointments(appointments);
-      decorator.setPolicies(null);
-      calendarView.invalidateDecorators();
-    }
-  }
 }

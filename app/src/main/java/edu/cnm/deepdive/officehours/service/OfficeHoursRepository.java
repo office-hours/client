@@ -26,7 +26,7 @@ public class OfficeHoursRepository {
 
   private OfficeHoursRepository(){
     proxy = OfficeHoursService.getInstance();
-    networkPool = Executors.newFixedThreadPool(NETWORK_POOL_SIZE);
+    networkPool = Executors.newSingleThreadExecutor();
     formatter = new SimpleDateFormat(ISO_DATE_FORMAT);
   }
 
@@ -62,6 +62,7 @@ public class OfficeHoursRepository {
     return proxy.getAllTeachers(String.format(OAUTH_HEADER_FORMAT, token))
         .subscribeOn(Schedulers.from(networkPool));
   }
+
   public Single<Appointment> getAppointment(String token, UUID id) {
     return proxy.getAppointment(String.format(OAUTH_HEADER_FORMAT, token), id)
         .subscribeOn(Schedulers.from(networkPool));
