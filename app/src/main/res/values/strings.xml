@@ -10,4 +10,9 @@
   <string name="user_nickname">User Nickname</string>
   <string name="select_teacher">Select Teacher</string>
   <string name="teacher_label">Teacher:</string>
+  <string name="appointment_date">Appointment Date</string>
+  <string name="appointment_start">Start Time</string>
+  <string name="appointment_end">End Time</string>
+  <string name="select_subject">Select Subject</string>
+  <string name="select_student">Select Student</string>
 </resources>

@@ -73,6 +73,13 @@ public class OfficeHoursRepository {
         .subscribeOn(Schedulers.from(networkPool));
   }
 
+  public Completable save(String token, Appointment appointment) {
+    return Completable.fromSingle(
+        proxy.postAppointment(String.format(OAUTH_HEADER_FORMAT, token), appointment)
+        .subscribeOn(Schedulers.from(networkPool))
+    );
+  }
+
   public Completable save(String token, User user) {
       return Completable.fromSingle(
           proxy.putUser(String.format(OAUTH_HEADER_FORMAT, token), user, user.getId())

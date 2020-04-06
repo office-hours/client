@@ -32,22 +32,22 @@ public class UserTestFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    setupViewModel();
+//    setupViewModel();
   }
 
   private void setupUI(View root) {
     userList = root.findViewById(R.id.users_list);
   }
 
-  @SuppressWarnings("ConstantConditions")
-  private void setupViewModel() {
-    viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
-    viewModel.getUsers().observe(getViewLifecycleOwner(), (users) -> {
-      OfficeHoursRecyclerAdapter adapter =
-          new OfficeHoursRecyclerAdapter(getContext(), users, (pos, user) ->
-              UserEditFragment.createAndShow(getChildFragmentManager(), user.getId()));
-      userList.setAdapter(adapter);
-    });
-  }
+//  @SuppressWarnings("ConstantConditions")
+//  private void setupViewModel() {
+//    viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
+//    viewModel.getUsers().observe(getViewLifecycleOwner(), (users) -> {
+//      OfficeHoursRecyclerAdapter adapter =
+//          new OfficeHoursRecyclerAdapter(getContext(), users, (pos, user) ->
+//              UserEditFragment.createAndShow(getChildFragmentManager(), user.getId()));
+//      userList.setAdapter(adapter);
+//    });
+//  }
 
 }

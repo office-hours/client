@@ -34,7 +34,7 @@ public class AppointmentDecorator implements DayViewDecorator {
         Calendar start = Calendar.getInstance();
         start.setTime(appointment.getStartTime());
         if (day.getYear() == start.get(Calendar.YEAR)
-            && day.getMonth() == start.get(Calendar.MONTH)
+            && day.getMonth() == start.get(Calendar.MONTH) + 1
             && day.getDay() == start.get(Calendar.DAY_OF_MONTH)) {
           return true;
         }

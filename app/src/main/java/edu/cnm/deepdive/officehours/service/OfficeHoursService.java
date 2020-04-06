@@ -57,6 +57,9 @@ public interface OfficeHoursService {
   @GET("appointments/{id}")
   Single<Appointment> getAppointment(@Header("Authorization") String oauthHeader, @Path("id") UUID id);
 
+  @POST("appointments")
+  Single<Appointment> postAppointment(@Header("Authorization") String oauthHeader, @Body Appointment appointment);
+
   // TODO Add method that allows to get appointments by a range of dates.
 
 

@@ -8,7 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.cnm.deepdive.officehours.R;
+import edu.cnm.deepdive.officehours.model.Appointment;
 import edu.cnm.deepdive.officehours.model.Student;
+import edu.cnm.deepdive.officehours.model.Teacher;
 import edu.cnm.deepdive.officehours.model.User;
 import edu.cnm.deepdive.officehours.view.OfficeHoursRecyclerAdapter.Holder;
 import java.util.List;
@@ -17,12 +19,12 @@ public class OfficeHoursRecyclerAdapter extends RecyclerView.Adapter<Holder> {
 
 
   private final Context context;
-  private final List<User> users;
+  private final List<Appointment> appointments;
   private final OnUserClickListener listener;
 
-  public OfficeHoursRecyclerAdapter(Context context, List<User> users, OnUserClickListener listener) {
+  public OfficeHoursRecyclerAdapter(Context context, List<Appointment> appointments, OnUserClickListener listener) {
     this.context = context;
-    this.users = users;
+    this.appointments = appointments;
     this.listener = listener;
 
   }
@@ -30,45 +32,51 @@ public class OfficeHoursRecyclerAdapter extends RecyclerView.Adapter<Holder> {
   @NonNull
   @Override
   public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    View root = LayoutInflater.from(context).inflate(R.layout.item_user_test, parent, false);
+    View root = LayoutInflater.from(context).inflate(R.layout.item_appointment, parent, false);
     return new Holder(root);
   }
 
   @Override
   public void onBindViewHolder(@NonNull Holder holder, int position) {
-    holder.bind(position, users.get(position));
+    holder.bind(position, appointments.get(position));
   }
 
   @Override
   public int getItemCount() {
-    return users.size();
+    return appointments.size();
   }
 
   @FunctionalInterface
   public interface OnUserClickListener {
 
-    void onUserClick(int position, User user);
+    void onUserClick(int position, Appointment appointment);
 
   }
 
   class Holder extends RecyclerView.ViewHolder {
 
-    private final TextView userInfo;
+    private final TextView appointmentInfo;
 
     private Holder(View root) {
       super(root);
-      userInfo = root.findViewById(R.id.user_item);
+      appointmentInfo = root.findViewById(R.id.time_range);
     }
 
-    private void bind(int position, User user) {
-      userInfo.setText(context.getString(R.string.user_format, user.getNickName()));
-      Student student = user.getStudent();
+    private void bind(int position, Appointment appointment) {
+      appointmentInfo.setText(context.getString(R.string.user_format, appointment.getStatus()));
+      Student student = appointment.getStudent();
       String studentName = (student != null) ? student.getStudentName() : null;
-      String attribution = (studentName != null)
+      String attributionS = (studentName != null)
           ? context.getString(R.string.attribution_format, studentName)
           : null;
-      itemView.setOnClickListener((v) -> listener.onUserClick(getAdapterPosition(), user));
-      itemView.setTag(user);
+      Teacher teacher = appointment.getTeacher();
+      String teacherName = (teacher != null) ? teacher.getTeacherName() : null;
+      String attributionT = (teacherName != null)
+          ? context.getString(R.string.attribution_format, studentName)
+          : null;
+
+      itemView.setOnClickListener((v) -> listener.onUserClick(getAdapterPosition(), appointment));
+      itemView.setTag(appointment);
     }
 
   }

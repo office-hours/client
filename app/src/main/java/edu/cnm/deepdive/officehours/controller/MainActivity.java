@@ -53,6 +53,10 @@ public class MainActivity extends AppCompatActivity
     decorator = new AppointmentDecorator(new ColorDrawable(Color.RED),
         new ColorDrawable(Color.GREEN), new ColorDrawable(Color.CYAN));
     calendarView.addDecorator(decorator);
+    findViewById(R.id.add_appointment).setOnClickListener((v) -> {
+      EditAppointmentFragment fragment = EditAppointmentFragment.createInstance(null);
+      fragment.show(getSupportFragmentManager(), fragment.getClass().getName());
+    });
     teacher = findViewById(R.id.teacher);
     teacher.setOnItemSelectedListener(this);
     setupViewModel();

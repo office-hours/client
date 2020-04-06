@@ -29,6 +29,12 @@ public class Appointment implements Content, Comparable<Appointment> {
   private Date updated;
 
   @Expose
+  private Status status;
+
+  @Expose
+  private Subject subject;
+
+  @Expose
   private URL href;
 
   public UUID getId() {
@@ -87,6 +93,22 @@ public class Appointment implements Content, Comparable<Appointment> {
     this.updated = updated;
   }
 
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
+  }
+
+  public Subject getSubject() {
+    return subject;
+  }
+
+  public void setSubject(Subject subject) {
+    this.subject = subject;
+  }
+
   public URL getHref() {
     return href;
   }
@@ -102,5 +124,22 @@ public class Appointment implements Content, Comparable<Appointment> {
       comparison = endTime.compareTo(other.endTime);
     }
     return comparison;
+  }
+
+  public enum Subject {
+    ANDROID_PROJECT,
+    CAPSTONE_PROJECT,
+    TUTORING,
+    GRADES,
+    OTHER;
+  }
+
+  public enum Status {
+    NO_SHOW,
+    PENDING,
+    LATE,
+    CANCELLED,
+    ARRIVED;
+
   }
 }
